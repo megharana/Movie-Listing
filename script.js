@@ -4,7 +4,7 @@ var titles = ["Movies Title", "Genre", "Popularity", "Release Date"];
 var pop_filter_submit_list = [];
 request.open(
   "GET",
-  "https://api.themoviedb.org/3/discover/movie?api_key=a07eb55022388f23593b113171ea9703&page=4",
+  "https://api.themoviedb.org/3/discover/movie?api_key=a07eb55022388f23593b113171ea9703&page=3",
   true
 );
 
@@ -58,7 +58,11 @@ function filter() {
     filter_btn.style.background = "white";
   }
 }
+var dropDownButton = document.getElementById("Popularity");
 
+dropDownButton.onclick = function() {
+  modal.style.display = "block";
+};
 function getModal() {
   // Get the modal
   var modal = document.getElementById("myModal");
@@ -119,7 +123,7 @@ function get_pop_filter_add_list() {
 function update_table(pop_filter_submit_list) {
   request.open(
     "GET",
-    "https://api.themoviedb.org/3/discover/movie?api_key=a07eb55022388f23593b113171ea9703&page=4",
+    "https://api.themoviedb.org/3/discover/movie?api_key=a07eb55022388f23593b113171ea9703&page=3",
     true
   );
   console.log("list_pop" + pop_filter_submit_list);
@@ -137,11 +141,11 @@ function update_table(pop_filter_submit_list) {
           titles[i] +
           "<input type='image' id='" +
           titles[i] +
-          "' src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png' class='hidden'></th>";
+          "' src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png'></th>";
       for (var i = 0; i < lengthOfResults; ++i) {
         for (var j = 0; j < pop_filter_submit_list.length; j++) {
           if (
-            Math.ceil(data.results[i].popularity) == pop_filter_submit_list[j]
+            Math.floor(data.results[i].popularity) == pop_filter_submit_list[j]
           ) {
             //console.log("Matched : " + data.results[i].popularity);
             updated_table += "</tr><tr>";

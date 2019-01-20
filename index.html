@@ -26,6 +26,7 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"
     ></script>
+
     <script src="script.js"></script>
   </head>
   <body>
@@ -44,6 +45,19 @@
         >
           <i class="material-icons"> filter_list </i> Filter
         </a>
+
+        <!-- Dropdown Trigger -->
+        <a class="dropdown-trigger btn" href="#" data-target="dropdown1"
+          >Sort By</a
+        >
+        <body id="body" class="light-mode">
+          <!-- <h1>Dark/Light Mode Switcher</h1> -->
+        
+          <button id= "light-dark-toggle" type="button" name="dark_light" onclick="toggleDarkLight()" title="Toggle dark/light mode">DARK MODE ON</button>
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+          <li><a href="#!">one</a></li>
+        </ul>
       </div>
       <div id="movieTable"></div>
     </div>
@@ -55,5 +69,20 @@
         <div class="modal-body" id="body"></div>
       </div>
     </div>
+    <script>
+      function toggleDarkLight() {
+        var body = document.getElementById("body");
+        var currentClass = body.className;
+        body.className = currentClass == "dark-mode" ? "light-mode" : "dark-mode";
+        if(body.className == "dark-mode"){document.getElementById("light-dark-toggle").innerHTML = "LIGHT MODE ON"}
+        else{ document.getElementById("light-dark-toggle").innerHTML = "DARK MODE ON"}
+      }
+      </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var elems = document.querySelectorAll(".dropdown-trigger");
+        var instances = M.Dropdown.init(elems, options);
+      });
+    </script>
   </body>
 </html>

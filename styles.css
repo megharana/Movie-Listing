@@ -93,6 +93,17 @@ a {
   position: unset;
 } */
 /* Add Animation */
+body.dark-mode {
+  background-color: #111;
+  color: #eee;
+  
+}
+
+body.light-mode {
+  background-color: #eee;
+  color: #111;
+ 
+
 @-webkit-keyframes slideIn {
   from {
     bottom: -300px;
