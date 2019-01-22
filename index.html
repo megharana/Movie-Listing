@@ -10,7 +10,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
-
+    <script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+      type="text/javascript"
+    ></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
@@ -26,39 +29,57 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"
     ></script>
-
-    <script src="script.js"></script>
   </head>
   <body>
     <div class="container">
-      <div class="input-field">
+      <!-- <div class="input-field">
         <input id="search_box" type="text" />
         <label for="search_box">Search</label>
-      </div>
+      </div> -->
 
       <div>
         <a
           id="filter_btn"
           onclick="javascript:filter()"
-          class="waves-effect waves-light btn-large black-text text-darken-2"
-          style="background:white"
+          class="waves-effect waves-light btn-small black-text text-darken-2"
+          style="background:white; float: left; "
         >
-          <i class="material-icons"> filter_list </i> Filter
-        </a>
+          <!-- <i class="material-icons"> filter_list </i>  -->
+        FILTER</a></li>
+      </div>
 
         <!-- Dropdown Trigger -->
-        <a class="dropdown-trigger btn" href="#" data-target="dropdown1"
+        <!-- <a class="dropdown-trigger btn" href="#" data-target="dropdown1"
           >Sort By</a
-        >
+        > -->
         <body id="body" class="light-mode">
-          <!-- <h1>Dark/Light Mode Switcher</h1> -->
-        
+          <!-- <h1>Dark/Light Mode Switcher-->
           <button id= "light-dark-toggle" type="button" name="dark_light" onclick="toggleDarkLight()" title="Toggle dark/light mode">DARK MODE ON</button>
-        <!-- Dropdown Structure -->
+          <ul class="pagination" style="padding: 50px">
+            <li class="waves-effect"><a href="#">&laquo;</a></li>
+            <li class="waves-effect"><a href="#" id="11" onclick="javascript:readJSON(11)">1</a></li>
+            <li class="waves-effect"><a href="#" id="21" onclick="javascript:readJSON(21)">2</a></li>
+            <li class="waves-effect"><a href="#" id="31" onclick="javascript:readJSON(31)">3</a></li>
+            <li class="waves-effect"><a href="#" id="41" onclick="javascript:readJSON(41)">4</a></li>
+            <li class="waves-effect"><a href="#"  id="51"onclick="javascript:readJSON(51)">5</a></li>
+            <li class="waves-effect"><a href="#" id="61"onclick="javascript:readJSON(61)">6</a></li>
+            <li class="waves-effect"><a href="#"  id="71"onclick="javascript:readJSON(71)">7</a></li>
+            <li class="waves-effect"><a href="#"  id="81"onclick="javascript:readJSON(81)">8</a></li>
+            <li class="waves-effect"><a href="#"  id="91"onclick="javascript:readJSON(91)">9</a></li>
+            <li class="waves-effect"><a href="#"  id="101"onclick="javascript:readJSON(101)">10</a></li>
+            <li class="waves-effect"><a href="#"  id="111"onclick="javascript:readJSON(111)">11</a></li>
+            <li class="waves-effect"><a href="#"  id="121"onclick="javascript:readJSON(121)">12</a></li>
+            <li class="waves-effect"><a href="#"  id="131"onclick="javascript:readJSON(131)">13</a></li>
+            <li class="waves-effect"><a href="#"  id="141"onclick="javascript:readJSON(141)">14</a></li>
+            <li class="waves-effect"><a href="#"  id="151"onclick="javascript:readJSON(151)">15</a></li>
+            <li class="waves-effect"><a href="#"  id="161"onclick="javascript:readJSON(161)">16</a></li>
+            <li class="waves-effect"><a href="#">&raquo;</a></li>
+          </ul>
+        <!-- Dropdown Structure
         <ul id="dropdown1" class="dropdown-content">
-          <li><a href="#!">one</a></li>
+          <li><li class="waves-effect"><a href="#!">one</a></li></li>
         </ul>
-      </div>
+      </div> -->
       <div id="movieTable"></div>
     </div>
     <!-- The Modal -->
@@ -69,6 +90,14 @@
         <div class="modal-body" id="body"></div>
       </div>
     </div>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var elems = document.querySelectorAll(".dropdown-trigger");
+        var instances = M.Dropdown.init(elems, options);
+      });
+    </script>
+
     <script>
       function toggleDarkLight() {
         var body = document.getElementById("body");
@@ -78,11 +107,7 @@
         else{ document.getElementById("light-dark-toggle").innerHTML = "DARK MODE ON"}
       }
       </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        var elems = document.querySelectorAll(".dropdown-trigger");
-        var instances = M.Dropdown.init(elems, options);
-      });
-    </script>
+
+    <script type="text/javascript" src="script.js"></script>
   </body>
 </html>

@@ -1,53 +1,69 @@
 var request = new XMLHttpRequest();
-var popularity_list = [];
-var titles = ["Movies Title", "Genre", "Popularity", "Release Date"];
+var budget_list = [];
+var title_year_list = [];
+var titles = ["Genre", "Language", "Country", "Budget", "TitleYear"];
 var pop_filter_submit_list = [];
-request.open(
-  "GET",
-  "https://api.themoviedb.org/3/discover/movie?api_key=a07eb55022388f23593b113171ea9703&page=3",
-  true
-);
 
-var tableForMovie =
-  '<table class ="tableStyling" cellpadding="0" cellspacing="0" border = 1 align = "center"><tbody><tr>';
-request.onload = function() {
-  var data = JSON.parse(this.response);
-  //console.log(data);
-
-  //var lengthOfResults = data.results.length;
-
-  if (request.status >= 200 && request.status < 400) {
-    for (var i = 0; i < 4; i++)
-      tableForMovie +=
-        "<th>" +
-        titles[i] +
-        "<input type='image' id='" +
-        titles[i] +
-        "' src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png' class='hidden'></th>";
-    //tableForMovie += "<th><div " + titles[i] + "<a><img id='pic" + i + "'src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png' class='hidden'></img></a></th>";
-    data.results.forEach(movie => {
-      //console.log(movie.title);
-      tableForMovie += "</tr><tr>";
-      tableForMovie += "<td>" + movie.title + "</td>";
-      tableForMovie += "<td>" + movie.genre_ids + "</td>";
-      tableForMovie += "<td>" + movie.popularity + "</td>";
-      tableForMovie += "<td>" + movie.release_date + "</td>";
-      tableForMovie += "</tr><tr>";
-      popularity_list.push(Math.ceil(movie.popularity));
-      popularity_list = Array.from(new Set(popularity_list));
-    });
-  } else {
-    console.log("error");
+readJSON(11);
+var pageNum;
+var startIndex;
+var upperLimit;
+function readJSON(endIndex) {
+  startIndex = endIndex - 11;
+  request.open("GET", "http://starlord.hackerearth.com/movies", true);
+  upperLimit = endIndex;
+  var listItems = document.querySelectorAll(".pagination li");
+  for (var i = 0; i < listItems.length; i++) {
+    console.log(listItems[i]);
   }
+  document.getElementById(endIndex).style.backgroundColor = "#F5CCFE";
 
-  document.getElementById("movieTable").innerHTML = tableForMovie;
-  console.log(document.getElementById("movieTable"));
-  getModal();
-};
-request.send();
+  var tableForMovie =
+    '<table class ="tableStyling" cellpadding="0" cellspacing="0" border = 1 align = "center"><tbody><tr>';
+  request.onload = function() {
+    var data = JSON.parse(this.response);
+    console.log(data);
+
+    //var lengthOfResults = data.results.length;
+
+    if (request.status >= 200 && request.status < 400) {
+      for (var i = 0; i < 5; i++)
+        tableForMovie +=
+          "<th>" +
+          titles[i] +
+          "<input type='image' id='" +
+          titles[i] +
+          "' src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png' class='hidden'></th>";
+      //tableForMovie += "<th><div " + titles[i] + "<a><img id='pic" + i + "'src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png' class='hidden'></img></a></th>";
+      var i = 0,
+        n = 0;
+      for (var i = startIndex; i < endIndex; i++) {
+        //console.log(movie.title);
+        tableForMovie += "</tr><tr>";
+        tableForMovie += "<td>" + data[i].genres + "</td>";
+        tableForMovie += "<td>" + data[i].language + "</td>";
+        tableForMovie += "<td>" + data[i].country + "</td>";
+        tableForMovie += "<td>" + data[i].budget + "</td>";
+        tableForMovie += "<td>" + data[i].title_year + "</td>";
+        tableForMovie += "</tr><tr>";
+        budget_list.push(data[i].budget);
+        title_year_list.push(data[i].title_year);
+      }
+      budget_list = Array.from(new Set(budget_list));
+      title_year_list = Array.from(new Set(title_year_list));
+    } else {
+      console.log("error");
+    }
+
+    document.getElementById("movieTable").innerHTML = tableForMovie;
+
+    getModal();
+  };
+  request.send();
+}
 
 function filter() {
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 5; i++) {
     var img = document.getElementById(titles[i]);
     img.classList.toggle("hidden");
   }
@@ -58,11 +74,7 @@ function filter() {
     filter_btn.style.background = "white";
   }
 }
-var dropDownButton = document.getElementById("Popularity");
 
-dropDownButton.onclick = function() {
-  modal.style.display = "block";
-};
 function getModal() {
   // Get the modal
   var modal = document.getElementById("myModal");
@@ -71,27 +83,26 @@ function getModal() {
   var span = document.getElementsByClassName("close")[0];
 
   // Get the button that opens the modal
-  var dropDownButton = document.getElementById("Popularity");
+  var dropDownButton = document.getElementById("TitleYear");
 
   dropDownButton.onclick = function() {
     modal.style.display = "block";
   };
   var modal_content = "<form id='pop_form'><p><label>Choose option</label></p>";
-  for (var i = 0; i < popularity_list.length; i++) {
+  for (var i = 0; i < title_year_list.length; i++) {
     modal_content +=
       "<p><label><input type='checkbox' id='option" +
       i +
       "' class='filled-in' value='" +
-      popularity_list[i] +
+      title_year_list[i] +
       "'/><span>" +
-      popularity_list[i] +
+      title_year_list[i] +
       "</span></label></p>";
   }
   modal_content +=
     "</form><button onclick='get_pop_filter_add_list()' id='pop_filter'>Apply</button>";
 
   document.getElementsByClassName("modal-header")[0].innerHTML += modal_content;
-  console.log(document.getElementsByClassName("modal-header")[0]);
 
   //When the user clicks on <span> (x), close the modal
   span.onclick = function() {
@@ -121,38 +132,31 @@ function get_pop_filter_add_list() {
 }
 
 function update_table(pop_filter_submit_list) {
-  request.open(
-    "GET",
-    "https://api.themoviedb.org/3/discover/movie?api_key=a07eb55022388f23593b113171ea9703&page=3",
-    true
-  );
+  request.open("GET", "http://starlord.hackerearth.com/movies", true);
   console.log("list_pop" + pop_filter_submit_list);
   request.onload = function() {
     var data = JSON.parse(this.response);
-    //console.log("list_pop" + pop_filter_submit_list);
-    //console.log("data" + data);
-    var lengthOfResults = data.results.length;
+
     var updated_table =
       '<table class ="tableStyling" cellpadding="0" cellspacing="0" border = 1 align = "center"><tbody><tr>';
     if (request.status >= 200 && request.status < 400) {
-      for (var i = 0; i < 4; i++)
+      for (var i = 0; i < 5; i++)
         updated_table +=
           "<th>" +
           titles[i] +
           "<input type='image' id='" +
           titles[i] +
           "' src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png'></th>";
-      for (var i = 0; i < lengthOfResults; ++i) {
+      for (var i = startIndex; i < upperLimit; ++i) {
         for (var j = 0; j < pop_filter_submit_list.length; j++) {
-          if (
-            Math.floor(data.results[i].popularity) == pop_filter_submit_list[j]
-          ) {
+          if (data[i].title_year == pop_filter_submit_list[j]) {
             //console.log("Matched : " + data.results[i].popularity);
             updated_table += "</tr><tr>";
-            updated_table += "<td>" + data.results[i].title + "</td>";
-            updated_table += "<td>" + data.results[i].genre_ids + "</td>";
-            updated_table += "<td>" + data.results[i].popularity + "</td>";
-            updated_table += "<td>" + data.results[i].release_date + "</td>";
+            updated_table += "<td>" + data[i].genres + "</td>";
+            updated_table += "<td>" + data[i].language + "</td>";
+            updated_table += "<td>" + data[i].country + "</td>";
+            updated_table += "<td>" + data[i].budget + "</td>";
+            updated_table += "<td>" + data[i].title_year + "</td>";
           }
         }
       }
