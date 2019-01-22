@@ -47,7 +47,14 @@
           <!-- <i class="material-icons"> filter_list </i>  -->
         FILTER</a></li>
       </div>
-
+      <div>
+        <a
+          id="sort_btn"
+          onclick="javascript:sortBtnActive()"
+          class="waves-effect waves-light btn-small black-text text-darken-2"
+          style="background:white; float: left; margin-left:40px"
+        >SORT</a></li>
+      </div>
         <!-- Dropdown Trigger -->
         <!-- <a class="dropdown-trigger btn" href="#" data-target="dropdown1"
           >Sort By</a
@@ -90,7 +97,13 @@
         <div class="modal-body" id="body"></div>
       </div>
     </div>
-    
+    <div id="modal_sort" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content" id ="modal_sort_content">
+        <div class="modal-header" id="modal_sort_header"><span class="close" id="modal_sort_close">&times;</span></div>
+        <div class="modal-body" id="modal_sort_body"></div>
+      </div>
+    </div>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         var elems = document.querySelectorAll(".dropdown-trigger");

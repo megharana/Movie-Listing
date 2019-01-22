@@ -12,10 +12,7 @@ function readJSON(endIndex) {
   startIndex = endIndex - 11;
   request.open("GET", "http://starlord.hackerearth.com/movies", true);
   upperLimit = endIndex;
-  var listItems = document.querySelectorAll(".pagination li");
-  for (var i = 0; i < listItems.length; i++) {
-    console.log(listItems[i]);
-  }
+
   document.getElementById(endIndex).style.backgroundColor = "#F5CCFE";
 
   var tableForMovie =
@@ -73,6 +70,41 @@ function filter() {
   } else {
     filter_btn.style.background = "white";
   }
+}
+
+function sortBtnActive() {
+  var modal = document.getElementById("modal_sort");
+  var span = document.getElementById("modal_sort_close");
+
+  var modal_sort_content =
+    "<form id='sort_form'><p><label>Choose column</label></p>";
+  for (var i = 0; i < 5; i++) {
+    modal_sort_content +=
+      "<p><label><input type='radio' id='option_" +
+      titles[i] +
+      "' class='filled-in' value='" +
+      titles[i] +
+      "'/><span>" +
+      titles[i] +
+      "</span></label></p>";
+  }
+  modal_sort_content +=
+    "</form><button onclick='()' id='sort_filter'>Sort</button>";
+  console.log(document.getElementById("modal_sort_header"));
+  document.getElementById("modal_sort_header").innerHTML += modal_sort_content;
+  modal.style.display = "block";
+
+  //When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
 }
 
 function getModal() {
