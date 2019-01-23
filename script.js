@@ -1,5 +1,6 @@
 var request = new XMLHttpRequest();
 var budget_list = [];
+var titleYearList = [];
 var title_year_list = [];
 var titles = ["Genre", "Language", "Country", "Budget", "TitleYear"];
 var pop_filter_submit_list = [];
@@ -44,10 +45,10 @@ function readJSON(endIndex) {
         tableForMovie += "<td>" + data[i].title_year + "</td>";
         tableForMovie += "</tr><tr>";
         budget_list.push(data[i].budget);
-        title_year_list.push(data[i].title_year);
+        titleYearList.push(data[i].title_year);
       }
       budget_list = Array.from(new Set(budget_list));
-      title_year_list = Array.from(new Set(title_year_list));
+      title_year_list = Array.from(new Set(titleYearList));
     } else {
       console.log("error");
     }
@@ -89,7 +90,7 @@ function sortBtnActive() {
       "</span></label></p>";
   }
   modal_sort_content +=
-    "</form><button onclick='()' id='sort_filter'>Sort</button>";
+    "</form><button onclick='sortImplementations()' id='sort_filter'>Sort</button>";
   console.log(document.getElementById("modal_sort_header"));
   document.getElementById("modal_sort_header").innerHTML += modal_sort_content;
   modal.style.display = "block";
@@ -106,7 +107,10 @@ function sortBtnActive() {
     }
   };
 }
-
+function sortImplementations() {
+  console.log(titleYearList.sort());
+  update_table(titleYearList);
+}
 function getModal() {
   // Get the modal
   var modal = document.getElementById("myModal");
@@ -179,10 +183,15 @@ function update_table(pop_filter_submit_list) {
           "<input type='image' id='" +
           titles[i] +
           "' src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png'></th>";
-      for (var i = startIndex; i < upperLimit; ++i) {
-        for (var j = 0; j < pop_filter_submit_list.length; j++) {
+      for (var j = 0; j < pop_filter_submit_list.length; j++) {
+        for (var i = startIndex; i < upperLimit; ++i) {
           if (data[i].title_year == pop_filter_submit_list[j]) {
-            //console.log("Matched : " + data.results[i].popularity);
+            console.log(
+              "Matched : " +
+                pop_filter_submit_list[j] +
+                " " +
+                data[i].title_year
+            );
             updated_table += "</tr><tr>";
             updated_table += "<td>" + data[i].genres + "</td>";
             updated_table += "<td>" + data[i].language + "</td>";
