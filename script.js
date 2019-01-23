@@ -80,9 +80,9 @@ function sortBtnActive() {
     "<form id='sort_form'><p><label>Choose column</label></p>";
   for (var i = 0; i < 5; i++) {
     modal_sort_content +=
-      "<p><label><input type='radio' id='option_" +
+      "<p><label><input type='radio'  id='option_" +
       titles[i] +
-      "' class='filled-in' value='" +
+      "' name='sort_movie' class='filled-in' value='" +
       titles[i] +
       "'/><span>" +
       titles[i] +
