@@ -15,45 +15,69 @@ function readJSON(endIndex) {
   upperLimit = endIndex;
 
   document.getElementById(endIndex).style.backgroundColor = "#F5CCFE";
-
-  var tableForMovie =
-    '<table class ="tableStyling" cellpadding="0" cellspacing="0" border = 1 align = "center"><tbody><tr>';
+  var tableForMovie = document.createElement("TABLE");
   request.onload = function() {
     var data = JSON.parse(this.response);
-    console.log(data);
-
-    //var lengthOfResults = data.results.length;
-
     if (request.status >= 200 && request.status < 400) {
-      for (var i = 0; i < 5; i++)
-        tableForMovie +=
-          "<th>" +
-          titles[i] +
-          "<input type='image' id='" +
-          titles[i] +
-          "' src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png' class='hidden'></th>";
-      //tableForMovie += "<th><div " + titles[i] + "<a><img id='pic" + i + "'src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png' class='hidden'></img></a></th>";
-      var i = 0,
-        n = 0;
-      for (var i = startIndex; i < endIndex; i++) {
-        //console.log(movie.title);
-        tableForMovie += "</tr><tr>";
-        tableForMovie += "<td>" + data[i].genres + "</td>";
-        tableForMovie += "<td>" + data[i].language + "</td>";
-        tableForMovie += "<td>" + data[i].country + "</td>";
-        tableForMovie += "<td>" + data[i].budget + "</td>";
-        tableForMovie += "<td>" + data[i].title_year + "</td>";
-        tableForMovie += "</tr><tr>";
-        budget_list.push(data[i].budget);
-        titleYearList.push(data[i].title_year);
+      var tableForMovieRow = document.createElement("TR");
+      for (var i = 0; i < 5; i++) {
+        var tableForMovieHeaders = document.createElement("TH");
+        var dropDownButton = document.createElement("INPUT");
+        dropDownButton.setAttribute("id", titles[i]);
+        dropDownButton.setAttribute(
+          "src",
+          "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png"
+        );
+        dropDownButton.setAttribute("class", "hidden");
+        dropDownButton.setAttribute("type", "image");
+        var headings = document.createTextNode(titles[i]);
+        tableForMovieHeaders.appendChild(headings);
+        tableForMovieHeaders.appendChild(dropDownButton);
+        console.log(tableForMovieHeaders);
+        tableForMovieRow.appendChild(tableForMovieHeaders);
       }
-      budget_list = Array.from(new Set(budget_list));
-      title_year_list = Array.from(new Set(titleYearList));
-    } else {
-      console.log("error");
     }
 
-    document.getElementById("movieTable").innerHTML = tableForMovie;
+    tableForMovie.appendChild(tableForMovieRow);
+    console.log(tableForMovie);
+    // var tableForMovie =
+    //   '<table class ="tableStyling" cellpadding="0" cellspacing="0" border = 1 align = "center"><tbody><tr>';
+    // request.onload = function() {
+    //   var data = JSON.parse(this.response);
+    //   console.log(data);
+
+    //   //var lengthOfResults = data.results.length;
+
+    //   if (request.status >= 200 && request.status < 400) {
+    //     for (var i = 0; i < 5; i++)
+    //       tableForMovie +=
+    //         "<th>" +
+    //         titles[i] +
+    //         "<input type='image' id='" +
+    //         titles[i] +
+    //         "' src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png' class='hidden'></th>";
+    //     //tableForMovie += "<th><div " + titles[i] + "<a><img id='pic" + i + "'src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png' class='hidden'></img></a></th>";
+    //     var i = 0,
+    //       n = 0;
+    //     for (var i = startIndex; i < endIndex; i++) {
+    //       //console.log(movie.title);
+    //       tableForMovie += "</tr><tr>";
+    //       tableForMovie += "<td>" + data[i].genres + "</td>";
+    //       tableForMovie += "<td>" + data[i].language + "</td>";
+    //       tableForMovie += "<td>" + data[i].country + "</td>";
+    //       tableForMovie += "<td>" + data[i].budget + "</td>";
+    //       tableForMovie += "<td>" + data[i].title_year + "</td>";
+    //       tableForMovie += "</tr><tr>";
+    //       budget_list.push(data[i].budget);
+    //       titleYearList.push(data[i].title_year);
+    //     }
+    //     budget_list = Array.from(new Set(budget_list));
+    //     title_year_list = Array.from(new Set(titleYearList));
+    //   } else {
+    //     console.log("error");
+    //   }
+
+    document.getElementById("movieTable").appendChild(tableForMovie);
 
     getModal();
   };
