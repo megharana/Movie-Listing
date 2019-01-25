@@ -35,6 +35,24 @@ function readJSON(endIndex) {
         tableForMovieHeaders.appendChild(dropDownButton);
         console.log(tableForMovieHeaders);
         tableForMovieRow.appendChild(tableForMovieHeaders);
+        for (var i = startIndex; i < endIndex; i++) {
+          var table_genre = document.createElement("TD");
+          var data_genre = document.createTextNode(data[i].genres);
+          table_genre.appendChild(data_genre);
+          var table_language = document.createElement("TD");
+          var data_language = document.createTextNode(data[i].language);
+          table_language.appendChild(data_language);
+          var table_country = document.createElement("TD");
+          var data_country = document.createTextNode(data[i].country);
+          table_country.appendChild(data_country);
+          var table_budget = document.createElement("TD");
+          var data_budget = document.createTextNode(data[i].budget);
+          table_budget.appendChild(data_budget);
+          var table_title_year = document.createElement("TD");
+          var data_title_year = document.createTextNode(data[i].title_year);
+          table_title_year.appendChild(data_title_year);
+          var table_content_;
+        }
       }
     }
 
