@@ -51,7 +51,8 @@ function readJSON(endIndex) {
           var table_title_year = document.createElement("TD");
           var data_title_year = document.createTextNode(data[i].title_year);
           table_title_year.appendChild(data_title_year);
-          var table_content_;
+          var table_content_row = document.createElement("TR");
+          tab;
         }
       }
     }
