@@ -35,29 +35,35 @@ function readJSON(endIndex) {
         tableForMovieHeaders.appendChild(dropDownButton);
         console.log(tableForMovieHeaders);
         tableForMovieRow.appendChild(tableForMovieHeaders);
-        for (var i = startIndex; i < endIndex; i++) {
-          var table_genre = document.createElement("TD");
-          var data_genre = document.createTextNode(data[i].genres);
-          table_genre.appendChild(data_genre);
-          var table_language = document.createElement("TD");
-          var data_language = document.createTextNode(data[i].language);
-          table_language.appendChild(data_language);
-          var table_country = document.createElement("TD");
-          var data_country = document.createTextNode(data[i].country);
-          table_country.appendChild(data_country);
-          var table_budget = document.createElement("TD");
-          var data_budget = document.createTextNode(data[i].budget);
-          table_budget.appendChild(data_budget);
-          var table_title_year = document.createElement("TD");
-          var data_title_year = document.createTextNode(data[i].title_year);
-          table_title_year.appendChild(data_title_year);
-          var table_content_row = document.createElement("TR");
-          tab;
-        }
+        tableForMovie.appendChild(tableForMovieRow);
+      }
+      for (var i = startIndex; i < endIndex; i++) {
+        var table_content_row = document.createElement("TR");
+        var table_genre = document.createElement("TD");
+        var data_genre = document.createTextNode(data[i].genres);
+        table_genre.appendChild(data_genre);
+        table_content_row.appendChild(table_genre);
+        var table_language = document.createElement("TD");
+        var data_language = document.createTextNode(data[i].language);
+        table_language.appendChild(data_language);
+        table_content_row.appendChild(table_language);
+        var table_country = document.createElement("TD");
+        var data_country = document.createTextNode(data[i].country);
+        table_country.appendChild(data_country);
+        table_content_row.appendChild(table_country);
+        var table_budget = document.createElement("TD");
+        var data_budget = document.createTextNode(data[i].budget);
+        table_budget.appendChild(data_budget);
+        table_content_row.appendChild(table_budget);
+        var table_title_year = document.createElement("TD");
+        var data_title_year = document.createTextNode(data[i].title_year);
+        table_title_year.appendChild(data_title_year);
+        table_content_row.appendChild(table_title_year);
+
+        tableForMovie.appendChild(table_content_row);
       }
     }
 
-    tableForMovie.appendChild(tableForMovieRow);
     console.log(tableForMovie);
     // var tableForMovie =
     //   '<table class ="tableStyling" cellpadding="0" cellspacing="0" border = 1 align = "center"><tbody><tr>';
