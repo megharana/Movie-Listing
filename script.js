@@ -9,6 +9,7 @@ readJSON(11);
 var pageNum;
 var startIndex;
 var upperLimit;
+
 function readJSON(endIndex) {
   startIndex = endIndex - 11;
   request.open("GET", "http://starlord.hackerearth.com/movies", true);
@@ -33,7 +34,7 @@ function readJSON(endIndex) {
         var headings = document.createTextNode(titles[i]);
         tableForMovieHeaders.appendChild(headings);
         tableForMovieHeaders.appendChild(dropDownButton);
-        console.log(tableForMovieHeaders);
+        // console.log(tableForMovieHeaders);
         tableForMovieRow.appendChild(tableForMovieHeaders);
         tableForMovie.appendChild(tableForMovieRow);
       }
@@ -89,6 +90,17 @@ function filter() {
 function searchImpl() {
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
+  movieList = document.getElementsByTagName("tr");
+  console.log(movieList);
+
+  for (var i = startIndex + 1; i < upperLimit + 1; i++) {
+    txtValue = movieList[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      movieList[i].style.display = "";
+    } else {
+      movieList[i].style.display = "none";
+    }
+  }
 }
 
 function sortBtnActive() {
