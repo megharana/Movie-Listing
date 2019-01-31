@@ -86,6 +86,11 @@ function filter() {
   }
 }
 
+function searchImpl() {
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+}
+
 function sortBtnActive() {
   var modal = document.getElementById("modal_sort");
   var span = document.getElementById("modal_sort_close");
